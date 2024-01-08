@@ -1,1 +1,2 @@
-# diffusion
+# diffusion (DDPM)
+(jax)
