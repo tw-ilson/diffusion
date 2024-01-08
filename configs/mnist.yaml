@@ -1,0 +1,52 @@
+logging:
+  entity: 
+  project: "ddpm-flax-mnist"
+  job_type: "training"
+  name:
+  log_train: true
+  log_sample: true
+  log_model: true
+
+training:
+  num_train_steps: 10000
+  log_every_steps: 20
+  loss_type: 'l1'
+  half_precision: false
+  save_and_sample_every: 1000
+  num_sample: 64
+
+ema:
+  beta: 0.995
+  update_every: 10
+  update_after_step: 100
+  inv_gamma: 1.0
+  power: 2/3
+  min_value: 0.0
+
+ddpm:
+  beta_schedule: 'cosine'
+  timesteps: 200
+  p2_loss_weight_gamma: 0. # p2 loss weight, from https://arxiv.org/abs/2204.00227 - 0 is equivalent to weight of 1 across time - 1. is recommended
+  p2_loss_weight_k: 1
+  self_condition: false # not tested yet
+  pred_x0: false # by default, the model will predict noise, if True predict x0
+
+data:
+  hf_dataset: 'mnist'
+  batch_size: 2
+  cache: false
+  image_size: 16
+  channels: 1
+
+model:
+  dim: 32
+  dim_mults: [1, 2, 4, 8]
+
+optim:
+  optimizer: 'Adam'
+  lr: 2e-4
+  beta1: 0.9
+  beta2: 0.99
+  eps: 1e-8
+
+seed: 42
